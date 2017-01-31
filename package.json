@@ -1,0 +1,28 @@
+{
+  "name": "spoj-scraper",
+  "version": "0.1.0",
+  "description": "Scraper for Sphere Online Judge submission status (www.spoj.com)",
+  "main": "app.js",
+  "dependencies": {
+    "bluebird": "^3.4.7",
+    "cheerio": "^0.22.0",
+    "lodash": "^4.17.4",
+    "moment": "^2.17.1",
+    "request": "^2.79.0",
+    "xlsx": "^0.8.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/d3nd0h/spoj-scraper.git"
+  },
+  "author": "fendy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/d3nd0h/spoj-scraper/issues"
+  },
+  "homepage": "https://github.com/d3nd0h/spoj-scraper#readme"
+}
