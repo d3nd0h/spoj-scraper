@@ -10,11 +10,11 @@ function iterateAll(users, problems) {
   return Bluebird.map(users, function (user) {
     return Bluebird.props({
       user: user,
-      result: Bluebird.map(problems, function (problemSpec) {
+      results: Bluebird.map(problems, function (problemSpec) {
         return Bluebird.props({
           date: problemSpec.date,
           problems: Bluebird.map(problemSpec.problems, function (problemCode) {
-            return scraper.getFirstAC(user, problemCode);
+            return scraper.getStatus(user, problemCode);
           })
         });
       })
@@ -28,9 +28,9 @@ exports.runAll = function () {
 
   iterateAll(data.users, data.problems)
     .then(function (res) {
-      res.forEach(function (a) { console.log(a.result) });
+      var resFilename = 'files/result.xlsx';
+      xlsxHelper.write(res, resFilename);
     })
-    .catch(console.log)
 };
 
 exports.runAll();

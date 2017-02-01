@@ -5,7 +5,7 @@ var _ = require('lodash');
 var moment = require('moment');
 var request = Bluebird.promisify(require('request'));
 
-exports.getFirstAC = function (username, problem) {
+function getFirstAC(username, problem) {
   var spojUrl = 'http://www.spoj.com/status/';
   var url = spojUrl + username.toLowerCase() + ',' + problem.toUpperCase() + '/';
 
@@ -24,4 +24,14 @@ exports.getFirstAC = function (username, problem) {
 
       return date;
     })
+};
+
+exports.getStatus = function (username, problem) {
+  return getFirstAC(username, problem)
+    .then(function (date) {
+      return {
+        code: problem,
+        firstACDate: date
+      };
+    });
 };
