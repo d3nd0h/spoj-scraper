@@ -72,6 +72,8 @@ function checkScore(firstACDate, problemDate) {
   var endDayTime = moment(problemDate, 'DD/MM/YYYY');
   startDayTime.hour('08');
   endDayTime.hour('17');
+  startDayTime.utcOffset("+0700");
+  endDayTime.utcOffset("+0700");
 
   var ret = {
     isRepeating: false,
