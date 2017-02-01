@@ -3,8 +3,8 @@ var XLSX = require('xlsx');
 var _ = require('lodash');
 
 function parseProblems(workbook) {
-  var firstSheetName = workbook.SheetNames[0];
-  var worksheet = workbook.Sheets[firstSheetName];
+  var sheetName = workbook.SheetNames[0];
+  var worksheet = workbook.Sheets[sheetName];
 
   var cols = _.split('BCDEFGHIJKLMNOPQRSTUVWXYZ', '');
   var columns = _.reduce(cols, function (acc, val) {
@@ -39,9 +39,28 @@ function parseProblems(workbook) {
   return allProblems;
 }
 
+function parseUsers(workbook) {
+  var sheetName = workbook.SheetNames[1];
+  var worksheet = workbook.Sheets[sheetName];
+
+  // Should be put in the first column without any headings
+  var col = 'A';
+  var row = 1;
+  var users = [];
+  while (!_.isEmpty(worksheet[col.concat(row)])) {
+    var cell = col.concat(row);
+    users.push(worksheet[cell].v);
+    row++;
+  }
+
+  return users;
+}
+
 exports.read = function (filename) {
   var workbook = XLSX.readFile(filename);
 
+  return {
+    problems: parseProblems(workbook),
+    users: parseUsers(workbook)
+  };
 };
-
-exports.read('files/test.xlsx');
